@@ -16,13 +16,20 @@ class OrdenAdapter(var ordenes: ArrayList<Orden>,
                    val infalter: LayoutInflater,
                    val listener: OrdenItemListener) : BaseAdapter() {
   override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-    val itemView =  if(convertView == null){
-      infalter.inflate(R.layout.list_row, null)
+    if(convertView == null){
+      val itemView =  infalter.inflate(R.layout.list_row, null)
+      val holder = ViewHolder(itemView.findViewById(R.id.totalTxt),
+                              itemView.findViewById(R.id.fechaTxt),
+                              itemView.findViewById(R.id.ordenarDenuevoBtn),
+                              itemView.findViewById(R.id.itemContainer))
+      itemView.tag = holder
+      displayData(holder, ordenes[position], position)
+      return itemView
     } else {
-      convertView
+      val holder = convertView.tag as ViewHolder
+      displayData(holder, ordenes[position], position)
+      return convertView
     }
-    displayData(itemView, ordenes[position], position)
-    return itemView
   }
 
   override fun getItem(position: Int): Any {
@@ -37,12 +44,12 @@ class OrdenAdapter(var ordenes: ArrayList<Orden>,
     return ordenes.size
   }
 
-  fun displayData(itemView: View, orden:Orden, position: Int): Unit {
+  private fun displayData(holder: ViewHolder, orden:Orden, position: Int) {
     val startTime = Calendar.getInstance()
-    itemView.findViewById<TextView>(R.id.totalTxt).text = "Total: ${orden.getTotal()}"
-    itemView.findViewById<TextView>(R.id.fechaTxt).text = orden.getFecha()
-    itemView.findViewById<Button>(R.id.ordenarDenuevoBtn).setOnClickListener { listener.onOrdenarDenuevoClick(orden) }
-    itemView.findViewById<View>(R.id.itemContainer).setOnClickListener { listener.onItemClick(position) }
+    holder.totalTxt.text = "Total: ${orden.getTotal()}"
+    holder.fechaTxt.text = orden.getFecha()
+    holder.ordenarDenuevoBtn.setOnClickListener { listener.onOrdenarDenuevoClick(orden) }
+    holder.itemContainer.setOnClickListener { listener.onItemClick(position) }
     val endTime = Calendar.getInstance()
     val diffInMilliseconds = endTime.time.time - startTime.time.time
     val diffInSeconds = diffInMilliseconds/1000
@@ -54,4 +61,9 @@ class OrdenAdapter(var ordenes: ArrayList<Orden>,
     fun onOrdenarDenuevoClick(orden: Orden)
     fun onItemClick(position: Int)
   }
+
+  private class ViewHolder(var totalTxt: TextView,
+                           var fechaTxt:TextView,
+                           var ordenarDenuevoBtn:Button,
+                           var itemContainer:View)
 }
