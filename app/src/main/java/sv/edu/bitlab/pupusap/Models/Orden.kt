@@ -34,6 +34,7 @@ class Orden() : Parcelable {
   }
 
   var precioUnidad = 0.5f
+  var textInput = ""
   var maiz = hashMapOf(
     QUESO to 0,
     FRIJOLES to 0,
@@ -90,7 +91,7 @@ class Orden() : Parcelable {
 
     fun randomOrders() :ArrayList<Orden>{
       var lista = arrayListOf<Orden>()
-      for(index in 0..1000){
+      for(index in 0..10){
           lista.add(Orden())
       }
       return lista

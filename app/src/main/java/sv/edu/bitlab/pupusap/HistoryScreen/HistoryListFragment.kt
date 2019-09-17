@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import sv.edu.bitlab.pupusap.HistoryScreen.HistoryRecyclerView.HistoryItemViewHolder
+import sv.edu.bitlab.pupusap.HistoryScreen.HistoryRecyclerView.OrdenAdapter
 import sv.edu.bitlab.pupusap.Models.Orden
 
 import sv.edu.bitlab.pupusap.R
@@ -25,22 +28,13 @@ private const val ORDERS_LIST = "ORDERS_LIST"
  * Use the [HistoryListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
+class HistoryListFragment : Fragment(), HistoryItemViewHolder.OrdenItemListener {
+
   // TODO: Rename and change types of parameters
   private var orderLists = arrayListOf<Orden>()
   private var listener: HistoryListFragmentListener? = null
-  private var listView: ListView? = null
+  private var listView: RecyclerView? = null
   private var inflater: LayoutInflater? = null
-  private var orderItemListenr = object :OrdenAdapter.OrdenItemListener{
-    override fun onOrdenarDenuevoClick(orden: Orden) {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onItemClick(position: Int) {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -62,10 +56,8 @@ class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     listView = view.findViewById(R.id.ordersListView)
-    listView!!.adapter = OrdenAdapter(orderLists, inflater!!, this)
-    listView!!.setOnItemClickListener { parent, view, position, id ->
-
-    }
+    listView!!.layoutManager = LinearLayoutManager(this.context)
+    listView!!.adapter = OrdenAdapter(orderLists, this)
   }
 
   // TODO: Rename method, update argument and hook method into UI event
@@ -111,6 +103,12 @@ class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
 
   override fun onItemClick(position: Int) {
     Log.d("HISTORY_FRGAMENT", "Click en item $position")
+  }
+
+
+  override fun onTextInput(input: String, position: Int) {
+    orderLists[position].textInput = input
+    listView!!.adapter!!.notifyDataSetChanged()
   }
 
   //endregion
