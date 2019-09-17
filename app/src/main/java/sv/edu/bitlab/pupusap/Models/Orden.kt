@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Orden() : Parcelable {
   override fun writeToParcel(dest: Parcel?, flags: Int) {
@@ -84,6 +85,15 @@ class Orden() : Parcelable {
 
     override fun newArray(size: Int): Array<Orden?> {
       return arrayOfNulls(size)
+    }
+
+
+    fun randomOrders() :ArrayList<Orden>{
+      var lista = arrayListOf<Orden>()
+      for(index in 0..1000){
+          lista.add(Orden())
+      }
+      return lista
     }
   }
 

@@ -15,6 +15,7 @@ import kotlin.collections.ArrayList
 class OrdenAdapter(var ordenes: ArrayList<Orden>,
                    val infalter: LayoutInflater,
                    val listener: OrdenItemListener) : BaseAdapter() {
+
   override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
     if(convertView == null){
       val itemView =  infalter.inflate(R.layout.list_row, null)
@@ -52,7 +53,7 @@ class OrdenAdapter(var ordenes: ArrayList<Orden>,
     holder.itemContainer.setOnClickListener { listener.onItemClick(position) }
     val endTime = Calendar.getInstance()
     val diffInMilliseconds = endTime.time.time - startTime.time.time
-    val diffInSeconds = diffInMilliseconds/1000
+    val diffInSeconds = diffInMilliseconds
     Log.d("ORDEN_ADAPTER", "Time to render view => $diffInSeconds")
 
   }
