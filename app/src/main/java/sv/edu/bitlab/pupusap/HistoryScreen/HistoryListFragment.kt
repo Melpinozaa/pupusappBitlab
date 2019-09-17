@@ -20,7 +20,7 @@ private const val ORDERS_LIST = "ORDERS_LIST"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [HistoryListFragment.OnFragmentInteractionListener] interface
+ * [HistoryListFragment.HistoryListFragmentListener] interface
  * to handle interaction events.
  * Use the [HistoryListFragment.newInstance] factory method to
  * create an instance of this fragment.
@@ -28,12 +28,24 @@ private const val ORDERS_LIST = "ORDERS_LIST"
 class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
   // TODO: Rename and change types of parameters
   private var orderLists = arrayListOf<Orden>()
-  private var listener: OnFragmentInteractionListener? = null
+  private var listener: HistoryListFragmentListener? = null
   private var listView: ListView? = null
   private var inflater: LayoutInflater? = null
+  private var orderItemListenr = object :OrdenAdapter.OrdenItemListener{
+    override fun onOrdenarDenuevoClick(orden: Orden) {
+      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onItemClick(position: Int) {
+      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    orderLists = arguments!!.getParcelableArrayList<Orden>(ORDERS_LIST)!!
+
     arguments?.let {
       orderLists = it.getParcelableArrayList<Orden>(ORDERS_LIST)!!
     }
@@ -51,6 +63,9 @@ class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
     super.onViewCreated(view, savedInstanceState)
     listView = view.findViewById(R.id.ordersListView)
     listView!!.adapter = OrdenAdapter(orderLists, inflater!!, this)
+    listView!!.setOnItemClickListener { parent, view, position, id ->
+
+    }
   }
 
   // TODO: Rename method, update argument and hook method into UI event
@@ -60,10 +75,10 @@ class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context is OnFragmentInteractionListener) {
+    if (context is HistoryListFragmentListener) {
       listener = context
     } else {
-      throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+      throw RuntimeException(context.toString() + " must implement HistoryListFragmentListener")
     }
   }
 
@@ -83,7 +98,7 @@ class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
    * (http://developer.android.com/training/basics/fragments/communicating.html)
    * for more information.
    */
-  interface OnFragmentInteractionListener {
+  interface HistoryListFragmentListener {
     // TODO: Update argument type and name
     fun onFragmentInteraction(uri: Uri)
   }
@@ -111,12 +126,20 @@ class HistoryListFragment : Fragment(), OrdenAdapter.OrdenItemListener {
      * @return A new instance of fragment HistoryListFragment.
      */
     // TODO: Rename and change types and number of parameters
+
+    // Equivalencia en programacion estructurada
+  /*  val params = Bundle()
+    params.putParcelableArrayList(ORDERS_LIST, orderList)
+    val fragment = HistoryListFragment()
+    fragment.arguments = params
+    return fragment*/
     @JvmStatic
-    fun newInstance(orderList: ArrayList<Orden>) =
-      HistoryListFragment().apply {
-        arguments = Bundle().apply {
-          putParcelableArrayList(ORDERS_LIST, orderList)
-        }
-      }
+    fun newInstance(orderList: ArrayList<Orden>) : HistoryListFragment {
+      val params = Bundle()
+      params.putParcelableArrayList(ORDERS_LIST, orderList)
+      val fragment = HistoryListFragment()
+      fragment.arguments = params
+      return fragment
+    }
   }
 }
