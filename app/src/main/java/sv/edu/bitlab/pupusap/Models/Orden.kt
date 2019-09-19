@@ -7,6 +7,20 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class Orden() : Parcelable {
+  var precioUnidad = 0.5f
+  var textInput = ""
+  var maiz = hashMapOf(
+    QUESO to 0,
+    FRIJOLES to 0,
+    REVUELTAS to 0
+  )
+  var arroz = hashMapOf(
+    QUESO to 0,
+    FRIJOLES to 0,
+    REVUELTAS to 0
+  )
+  private var fecha:Calendar = Calendar.getInstance()
+
   override fun writeToParcel(dest: Parcel?, flags: Int) {
     dest!!.writeFloat(this.precioUnidad)
     dest.writeInt(maiz[QUESO]!!)
@@ -32,20 +46,6 @@ class Orden() : Parcelable {
   override fun describeContents(): Int {
     return 0
   }
-
-  var precioUnidad = 0.5f
-  var textInput = ""
-  var maiz = hashMapOf(
-    QUESO to 0,
-    FRIJOLES to 0,
-    REVUELTAS to 0
-  )
-  var arroz = hashMapOf(
-    QUESO to 0,
-    FRIJOLES to 0,
-    REVUELTAS to 0
-  )
-  private var fecha:Calendar = Calendar.getInstance()
 
   fun getTotal(): Float {
     val totalMaiz = maiz.map { entry ->
@@ -78,7 +78,7 @@ class Orden() : Parcelable {
     const val REVUELTAS = "REVUELTAS"
     const val MAIZ = "MAIZ"
     const val ARROZ = "ARROZ"
-    const val FORMATO_FECHA = "dd-MM-yyyy"
+    const val FORMATO_FECHA = "dd-MM-yyyy" //09-09-2019
 
     override fun createFromParcel(parcel: Parcel): Orden {
       return Orden(parcel)

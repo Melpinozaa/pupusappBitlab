@@ -7,21 +7,11 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import sv.edu.bitlab.pupusap.DetalleOrdeActivity.Companion.CONTADOR_ARROZ
-import sv.edu.bitlab.pupusap.DetalleOrdeActivity.Companion.CONTADOR_MAIZ
+import sv.edu.bitlab.pupusap.Models.Orden
 
 class MainActivity : AppCompatActivity() {
-    var contadoresMaiz = hashMapOf(
-        QUESO to 0,
-        FRIJOLES to 0,
-        REVUELTAS to 0
-    )
 
-    var contadoresArroz = hashMapOf(
-        QUESO to 0,
-        FRIJOLES to 0,
-        REVUELTAS to 0
-    )
+    val orden = Orden()
 
     val pupusaStringResources = hashMapOf(
         QUESO to R.string.pupusa_queso,
@@ -88,14 +78,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun displayCounters() {
-        for ((key,value) in contadoresMaiz){
+        for ((key,value) in orden.maiz){
             val resource = pupusaStringResources[key]
             val text = this.resources.getString(resource!!, value)
             botonesMaiz[key]!!.text = text
         }
 
 
-        for ((key,value) in contadoresArroz){
+        for ((key,value) in orden.arroz){
             val resource = pupusaStringResources[key]
             val text = this.resources.getString(resource!!, value)
             botonesArroz[key]!!.text = text
@@ -104,17 +94,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addMaiz(relleno: String) {
-        contadoresMaiz[relleno] = contadoresMaiz[relleno]!! + 1
-        val contador = contadoresMaiz[relleno]
+        orden.maiz[relleno] = orden.maiz[relleno]!! + 1
+        val contador = orden.maiz[relleno]
         val resource = pupusaStringResources[relleno]
         val text = this.resources.getString(resource!!, contador)
         botonesMaiz[relleno]!!.text = text
-        var s = "hola"
-        s = "$s mundo"
     }
     fun addArroz(relleno: String) {
-        contadoresArroz[relleno] = contadoresArroz[relleno]!! + 1
-        val contador = contadoresArroz[relleno]
+        orden.arroz[relleno] = orden.arroz[relleno]!! + 1
+        val contador =  orden.arroz[relleno]
         val resource = pupusaStringResources[relleno]
         val text = this.resources.getString(resource!!, contador)
         botonesArroz[relleno]!!.text = text
@@ -122,19 +110,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun confirmarOrden() {
         val intent = Intent(this, DetalleOrdeActivity::class.java)
-        val arroz = arrayListOf<Int>(
-            contadoresArroz[QUESO]!!,
-            contadoresArroz[FRIJOLES]!!,
-            contadoresArroz[REVUELTAS]!!)
-        val maiz = arrayListOf<Int>(
-            contadoresMaiz[QUESO]!!,
-            contadoresMaiz[FRIJOLES]!!,
-            contadoresMaiz[REVUELTAS]!!)
-
-
-        intent.putExtra(CONTADOR_ARROZ, arroz)
-        intent.putExtra(CONTADOR_MAIZ, maiz)
-
+        intent.putExtra(ORDEN,orden)
         this.startActivity(intent)
     }
 
@@ -150,9 +126,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object{
-        const val QUESO = "QUESO"
-        const val FRIJOLES = "FRIJOLES"
-        const val REVUELTAS = "REVUELTAS"
         const val MAIZ = "MAIZ"
         const val ARROZ = "ARROZ"
     }

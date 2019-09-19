@@ -7,34 +7,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import sv.edu.bitlab.pupusap.Models.Orden
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [PruebaFragment.PruebaFragmentListener] interface
+ * [OrdenDetalleFragment.PruebaFragmentListener] interface
  * to handle interaction events.
- * Use the [PruebaFragment.newInstance] factory method to
+ * Use the [OrdenDetalleFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class PruebaFragment : Fragment() {
+class OrdenDetalleFragment : Fragment() {
   // TODO: Rename and change types of parameters
-  private var param1: String? = null
-  private var param2: String? = null
+  private lateinit var orden: Orden
   private var listener: PruebaFragmentListener? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     arguments?.let {
-      param1 = it.getString(ARG_PARAM1)
-      param2 = it.getString(ARG_PARAM2)
+      orden = it.getParcelable<Orden>(ORDEN)!!
     }
   }
 
@@ -43,18 +39,11 @@ class PruebaFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View? {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_prueaba, container, false)
+    return inflater.inflate(R.layout.fragment_detalle_orden, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    val textView = this.view!!.findViewById<TextView>(R.id.textviewFragment)
-    textView.text = "$param1 $param2"
-  }
-
-  // TODO: Rename method, update argument and hook method into UI event
-  fun onButtonPressed(uri: Uri) {
-    listener?.onFragmentInteraction(uri)
   }
 
   override fun onAttach(context: Context) {
@@ -92,18 +81,17 @@ class PruebaFragment : Fragment() {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param orden Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PruebaFragment.
+     * @return A new instance of fragment OrdenDetalleFragment.
      */
     // TODO: Rename and change types and number of parameters
 
     @JvmStatic
-    fun newInstance(param1: String, param2: String) =
-      PruebaFragment().apply {
+    fun newInstance(orden: Orden) =
+      OrdenDetalleFragment().apply {
         arguments = Bundle().apply {
-          putString(ARG_PARAM1, param1)
-          putString(ARG_PARAM2, param2)
+          putParcelable(ORDEN, orden)
         }
       }
   }
