@@ -39,10 +39,6 @@ class HistoryListFragment : Fragment(), HistoryItemViewHolder.OrdenItemListener 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     orderLists = arguments!!.getParcelableArrayList<Orden>(ORDERS_LIST)!!
-
-    arguments?.let {
-      orderLists = it.getParcelableArrayList<Orden>(ORDERS_LIST)!!
-    }
   }
 
   override fun onCreateView(
@@ -55,9 +51,11 @@ class HistoryListFragment : Fragment(), HistoryItemViewHolder.OrdenItemListener 
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    val adapter = OrdenAdapter(orderLists, this)
     listView = view.findViewById(R.id.ordersListView)
     listView!!.layoutManager = LinearLayoutManager(this.context)
-    listView!!.adapter = OrdenAdapter(orderLists, this)
+    listView!!.adapter = adapter
+    adapter.notifyDataSetChanged()
   }
 
   // TODO: Rename method, update argument and hook method into UI event
