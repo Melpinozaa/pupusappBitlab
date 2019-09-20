@@ -24,8 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/textView2" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintBottom_toTopOf="@+id/frijolIzquierdaMaiz"/>
+            app:layout_constraintEnd_toStartOf="@+id/guideline2" app:layout_constraintHorizontal_bias="0.5"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,84 +38,15 @@
             android:id="@+id/textView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline2" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintBottom_toTopOf="@+id/frijolIDerechaArroz"/>
+            app:layout_constraintStart_toStartOf="@+id/guideline2" app:layout_constraintHorizontal_bias="0.5"/>
 
-        <Button
-            android:id="@+id/frijolIDerechaArroz"
-            style="@style/AppTheme.botonPupusaIzquierdo"
-            android:text="@string/pupusa_queso"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            android:layout_marginTop="20dp" app:layout_constraintStart_toStartOf="@+id/guideline2"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintBottom_toTopOf="@+id/quesoDerecha"/>
 
-        <Button
-            android:id="@+id/frijolIzquierdaMaiz"
-            style="@style/AppTheme.botonPupusaDerecho"
-            android:text="@string/pupusa_queso"
-            android:background="@drawable/round_button"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp" android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintBottom_toTopOf="@+id/quesoIzquierda"/>
-
-        <Button
-            android:id="@+id/quesoIzquierda"
-            style="@style/AppTheme.botonPupusaIzquierdo"
-            android:text="@string/frijol_con_queso"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp" app:layout_constraintTop_toBottomOf="@+id/frijolIzquierdaMaiz"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toTopOf="@+id/revueltasIzquierda"/>
-
-        <Button
-            android:id="@+id/quesoDerecha"
-            style="@style/AppTheme.botonPupusaDerecho"
-            android:text="@string/frijol_con_queso"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="20dp" android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/frijolIDerechaArroz"
-            app:layout_constraintStart_toStartOf="@+id/guideline2" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toTopOf="@+id/revueltasDerecha"/>
-
-        <Button
-            android:id="@+id/revueltasIzquierda"
-            style="@style/AppTheme.botonPupusaIzquierdo"
-            android:text="@string/revueltas"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp" app:layout_constraintTop_toBottomOf="@+id/quesoIzquierda"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.5" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"/>
-
-        <Button
-            android:id="@+id/revueltasDerecha"
-            style="@style/AppTheme.botonPupusaDerecho"
-            android:text="@string/revueltas"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="20dp" android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/quesoDerecha"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.5"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/guideline"/>
-
-        <Button
-            android:id="@+id/sendButton"
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/enviar_orden"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:background="@color/primaryButtonColor"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintVertical_bias="0.62"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content" android:id="@+id/guideline"
