@@ -195,6 +195,7 @@
 
 
     <Button
+        android:id="@+id/irACheckourBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Confirmar Orden"
@@ -202,6 +203,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="@dimen/line_items_margin_top"
-        app:layout_constraintTop_toBottomOf="@+id/lineItemDetailTotal" android:id="@+id/button"/>
+        app:layout_constraintTop_toBottomOf="@+id/lineItemDetailTotal" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
