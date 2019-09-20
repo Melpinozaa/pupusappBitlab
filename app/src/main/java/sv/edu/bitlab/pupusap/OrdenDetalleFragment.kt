@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import sv.edu.bitlab.pupusap.HistoryScreen.HistoryActivity
+import sv.edu.bitlab.pupusap.HistoryScreen.VARIABLE
 import sv.edu.bitlab.pupusap.Models.Orden
 
 
@@ -16,7 +19,7 @@ import sv.edu.bitlab.pupusap.Models.Orden
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [OrdenDetalleFragment.PruebaFragmentListener] interface
+ * [OrdenDetalleFragment.OrdenDetalleFragmentListener] interface
  * to handle interaction events.
  * Use the [OrdenDetalleFragment.newInstance] factory method to
  * create an instance of this fragment.
@@ -25,12 +28,16 @@ import sv.edu.bitlab.pupusap.Models.Orden
 class OrdenDetalleFragment : Fragment() {
   // TODO: Rename and change types of parameters
   private lateinit var orden: Orden
-  private var listener: PruebaFragmentListener? = null
+  private var reorder:Boolean = false
+
+  private var listener: OrdenDetalleFragmentListener? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    VARIABLE
     super.onCreate(savedInstanceState)
     arguments?.let {
       orden = it.getParcelable<Orden>(ORDEN)!!
+      reorder = it.getBoolean(REORDER, false)
     }
   }
 
@@ -44,14 +51,20 @@ class OrdenDetalleFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    val confirmarBoton = view.findViewById<Button>(R.id.irACheckourBtn)
+    if(reorder){
+      confirmarBoton.text = "Volver a ordenar"
+    } else {
+      confirmarBoton.text = "Confirmar orden"
+    }
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context is PruebaFragmentListener) {
+    if (context is OrdenDetalleFragmentListener) {
       listener = context
     } else {
-      throw RuntimeException(context.toString() + " must implement PruebaFragmentListener")
+      throw RuntimeException(context.toString() + " must implement OrdenDetalleFragmentListener")
     }
   }
 
@@ -71,9 +84,10 @@ class OrdenDetalleFragment : Fragment() {
    * (http://developer.android.com/training/basics/fragments/communicating.html)
    * for more information.
    */
-  interface PruebaFragmentListener {
+  interface OrdenDetalleFragmentListener {
     // TODO: Update argument type and name
     fun onFragmentInteraction(uri: Uri)
+    fun funcionConDevulicion() : Int
   }
 
   companion object {
@@ -88,10 +102,11 @@ class OrdenDetalleFragment : Fragment() {
     // TODO: Rename and change types and number of parameters
 
     @JvmStatic
-    fun newInstance(orden: Orden) =
+    fun newInstance(orden: Orden, reorder: Boolean= false) =
       OrdenDetalleFragment().apply {
         arguments = Bundle().apply {
           putParcelable(ORDEN, orden)
+          putBoolean(REORDER, reorder)
         }
       }
   }

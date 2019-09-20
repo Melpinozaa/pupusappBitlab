@@ -2,6 +2,8 @@ package sv.edu.bitlab.pupusap.Models
 
 import android.os.Parcel
 import android.os.Parcelable
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -19,7 +21,7 @@ class Orden() : Parcelable {
     FRIJOLES to 0,
     REVUELTAS to 0
   )
-  private var fecha:Calendar = Calendar.getInstance()
+  private var fecha:DateTime = DateTime()
 
   override fun writeToParcel(dest: Parcel?, flags: Int) {
     dest!!.writeFloat(this.precioUnidad)
@@ -60,14 +62,13 @@ class Orden() : Parcelable {
   }
 
   fun getFecha(): String {
-    val formatter = SimpleDateFormat(FORMATO_FECHA)
-    return formatter.format(fecha.time)
+    val formatter = DateTimeFormat.forPattern(FORMATO_FECHA)
+    return formatter.print(fecha)
   }
 
   fun setFecha(fecha: String) {
-    val formatter = SimpleDateFormat(FORMATO_FECHA)
-    this.fecha = Calendar.getInstance()
-    this.fecha.time = formatter.parse(fecha)
+    val formatter = DateTimeFormat.forPattern(FORMATO_FECHA)
+    this.fecha = formatter.parseDateTime(fecha)
   }
 
 
@@ -92,7 +93,18 @@ class Orden() : Parcelable {
     fun randomOrders() :ArrayList<Orden>{
       var lista = arrayListOf<Orden>()
       for(index in 0..10){
-          lista.add(Orden())
+        val orden = Orden()
+        val randomDaysNumbers = (Math.random() *10 ).toInt()
+        var fechaRandom = DateTime()
+        orden.fecha = if(randomDaysNumbers % 2 == 0) fechaRandom.plusDays(randomDaysNumbers) else fechaRandom.minusDays(randomDaysNumbers)
+
+        orden.maiz[QUESO] = (Math.random() *10 ).toInt()
+        orden.maiz[FRIJOLES] = (Math.random() *10 ).toInt()
+        orden.maiz[REVUELTAS] = (Math.random() *10 ).toInt()
+        orden.arroz[QUESO] = (Math.random() *10 ).toInt()
+        orden.arroz[FRIJOLES] = (Math.random() *10 ).toInt()
+        orden.arroz[REVUELTAS] = (Math.random() *10 ).toInt()
+        lista.add(orden)
       }
       return lista
     }

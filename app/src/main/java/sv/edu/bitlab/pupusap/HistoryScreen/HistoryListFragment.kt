@@ -1,7 +1,6 @@
 package sv.edu.bitlab.pupusap.HistoryScreen
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -58,11 +57,6 @@ class HistoryListFragment : Fragment(), HistoryItemViewHolder.OrdenItemListener 
     adapter.notifyDataSetChanged()
   }
 
-  // TODO: Rename method, update argument and hook method into UI event
-  fun onButtonPressed(uri: Uri) {
-    listener?.onFragmentInteraction(uri)
-  }
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context is HistoryListFragmentListener) {
@@ -90,17 +84,17 @@ class HistoryListFragment : Fragment(), HistoryItemViewHolder.OrdenItemListener 
    */
   interface HistoryListFragmentListener {
     // TODO: Update argument type and name
-    fun onFragmentInteraction(uri: Uri)
+    fun onItemClicked(position: Int)
   }
 
   //region OrdenAdapter.OrdenItemListener methods
 
-  override fun onOrdenarDenuevoClick(orden: Orden) {
+  override fun onOrdenarDenuevoClick(position: Int) {
     Log.d("HISTORY_FRGAMENT", "Click para agregar nueva orden")
   }
 
   override fun onItemClick(position: Int) {
-    Log.d("HISTORY_FRGAMENT", "Click en item $position")
+    listener!!.onItemClicked(position)
   }
 
 

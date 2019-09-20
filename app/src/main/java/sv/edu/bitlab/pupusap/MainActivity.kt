@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        quesoIzquierda = findViewById(R.id.quesoIzquierda)
+  /*      quesoIzquierda = findViewById(R.id.quesoIzquierda)
         frijolIzquierda = findViewById(R.id.frijolIzquierdaMaiz)
         revueltaIzquierda = findViewById(R.id.revueltasIzquierda)
 
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         displayCounters()
         setActionBar(null)
-        Log.d("ACTIVITY", "MainActivity onCreate()")
+        Log.d("ACTIVITY", "MainActivity onCreate()")*/
     }
 
     fun displayCounters() {

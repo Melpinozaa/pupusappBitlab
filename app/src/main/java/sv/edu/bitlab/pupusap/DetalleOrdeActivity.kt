@@ -7,7 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import sv.edu.bitlab.pupusap.Models.Orden
 
-class DetalleOrdeActivity : AppCompatActivity(), OrdenDetalleFragment.PruebaFragmentListener {
+class DetalleOrdeActivity : AppCompatActivity(), OrdenDetalleFragment.OrdenDetalleFragmentListener {
   var orden = Orden()
 
 
@@ -38,6 +38,6 @@ class DetalleOrdeActivity : AppCompatActivity(), OrdenDetalleFragment.PruebaFrag
   //endregion
 
   companion object{
-    const val FRAGMENT_TAG = "FRAGMENT_TAG"
+    const val FRAGMENT_TAG = "LIST_FRAGMENT_TAG"
   }
 }
