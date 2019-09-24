@@ -4,14 +4,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import sv.edu.bitlab.pupusap.Models.Orden
+import sv.edu.bitlab.pupusap.Models.TakenOrden
+import sv.edu.bitlab.pupusap.Models.RellenoWrapper
+import sv.edu.bitlab.pupusap.Network.ApiService
 
 class MainActivity : AppCompatActivity() {
 
-    val orden = Orden()
+    val orden = TakenOrden()
 
     val pupusaStringResources = hashMapOf(
         QUESO to R.string.pupusa_queso,
@@ -35,6 +40,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val orden = Orden(0, arrayListOf(), arrayListOf(), 0.5f, 10.50f)
+        ApiService.create().submitOrden(orden).enqueue(object : Callback<Orden>{
+            override fun onFailure(call: Call<Orden>, t: Throwable) {
+                if(t == null){
+
+                }
+            }
+
+            override fun onResponse(
+                call: Call<Orden>,
+                response: Response<Orden>
+            ) {
+                if(response.isSuccessful){
+                    val orden = response.body()
+                    //Mostrar orden en UI
+                }
+            }
+
+        })
   /*      quesoIzquierda = findViewById(R.id.quesoIzquierda)
         frijolIzquierda = findViewById(R.id.frijolIzquierdaMaiz)
         revueltaIzquierda = findViewById(R.id.revueltasIzquierda)
