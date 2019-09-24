@@ -57,6 +57,20 @@ class OrdenDetalleFragment : Fragment() {
     } else {
       confirmarBoton.text = "Confirmar orden"
     }
+    displayOrder(orden)
+
+    confirmarBoton.setOnClickListener {
+      if(reorder){
+        listener!!.onReorder()
+      } else {
+        listener!!.onConfirmarOrden()
+      }
+    }
+
+  }
+
+  fun displayOrder(orden: Orden) {
+
   }
 
   override fun onAttach(context: Context) {
@@ -87,7 +101,8 @@ class OrdenDetalleFragment : Fragment() {
   interface OrdenDetalleFragmentListener {
     // TODO: Update argument type and name
     fun onFragmentInteraction(uri: Uri)
-    fun funcionConDevulicion() : Int
+    fun onConfirmarOrden()
+    fun onReorder()
   }
 
   companion object {

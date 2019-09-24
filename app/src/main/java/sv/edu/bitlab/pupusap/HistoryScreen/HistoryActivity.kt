@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.TextView
+import android.widget.Toast
 import sv.edu.bitlab.pupusap.Models.Orden
 import sv.edu.bitlab.pupusap.OrdenDetalleFragment
 import sv.edu.bitlab.pupusap.R
@@ -13,6 +14,14 @@ public const val VARIABLE = 2
 class HistoryActivity : AppCompatActivity(),
   HistoryListFragment.HistoryListFragmentListener,
   OrdenDetalleFragment.OrdenDetalleFragmentListener {
+  override fun onConfirmarOrden() {
+    Toast.makeText(this, "CONFIRMANDO ORDEN DESDE HISTORIAL!!!", Toast.LENGTH_LONG).show()
+  }
+
+  override fun onReorder() {
+    Toast.makeText(this, "CONFIRMANDO REORDENANDO DESDE HISTORIAL!!!", Toast.LENGTH_LONG).show()
+  }
+
   private lateinit var ordenes: ArrayList<Orden>
 
   override fun onCreate(savedInstanceState: Bundle?) {

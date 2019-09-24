@@ -8,10 +8,15 @@ import android.widget.Toast
 import sv.edu.bitlab.pupusap.Models.Orden
 
 class DetalleOrdeActivity : AppCompatActivity(), OrdenDetalleFragment.OrdenDetalleFragmentListener {
+  override fun onConfirmarOrden() {
+    Toast.makeText(this, "CONFIRMANDO ORDEN!!!", Toast.LENGTH_LONG).show()
+  }
+
+  override fun onReorder() {
+    Toast.makeText(this, "REORDENANDO PUPUSAS!!!", Toast.LENGTH_LONG).show()
+  }
+
   var orden = Orden()
-
-
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_detalle_orden)

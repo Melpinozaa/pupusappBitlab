@@ -35,6 +35,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        orden.maiz[QUESO] = 3
+        orden.maiz[FRIJOLES] = 3
+        orden.maiz[REVUELTAS] = 3
+        orden.arroz[QUESO] = 3
+        orden.arroz[FRIJOLES] = 3
+        orden.arroz[REVUELTAS] = 3
+        confirmarOrden()
   /*      quesoIzquierda = findViewById(R.id.quesoIzquierda)
         frijolIzquierda = findViewById(R.id.frijolIzquierdaMaiz)
         revueltaIzquierda = findViewById(R.id.revueltasIzquierda)
