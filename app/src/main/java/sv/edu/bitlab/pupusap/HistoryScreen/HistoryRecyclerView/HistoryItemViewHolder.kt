@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import sv.edu.bitlab.pupusap.Models.Orden
+import sv.edu.bitlab.pupusap.Models.TakenOrden
 import sv.edu.bitlab.pupusap.R
 
 class HistoryItemViewHolder(itemView : View, val listener:OrdenItemListener) : RecyclerView.ViewHolder(itemView) {
@@ -16,7 +16,7 @@ class HistoryItemViewHolder(itemView : View, val listener:OrdenItemListener) : R
   var contenedor:View? = null
 
 
-  fun bindData(orden: Orden) {
+  fun bindData(orden: TakenOrden) {
 
     fechaTxt = itemView.findViewById(R.id.fechaTxt)
     totalTxt = itemView.findViewById(R.id.totalTxt)

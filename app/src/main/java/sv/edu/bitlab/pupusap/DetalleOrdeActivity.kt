@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import sv.edu.bitlab.pupusap.Models.Orden
+import sv.edu.bitlab.pupusap.Models.TakenOrden
 
 class DetalleOrdeActivity : AppCompatActivity(), OrdenDetalleFragment.OrdenDetalleFragmentListener {
   override fun onConfirmarOrden() {
     Toast.makeText(this, "CONFIRMANDO ORDEN!!!", Toast.LENGTH_LONG).show()
   }
+  var orden = TakenOrden()
+
 
   override fun onReorder() {
     Toast.makeText(this, "REORDENANDO PUPUSAS!!!", Toast.LENGTH_LONG).show()
@@ -22,7 +24,7 @@ class DetalleOrdeActivity : AppCompatActivity(), OrdenDetalleFragment.OrdenDetal
     setContentView(R.layout.activity_detalle_orden)
     Toast.makeText(this, "onCreate()", Toast.LENGTH_LONG).show()
     val params = this.intent.extras
-    orden = params!!.getParcelable<Orden>(ORDEN)!!
+    orden = params!!.getParcelable<TakenOrden>(ORDEN)!!
     Log.d("ACTIVITY", "onCreate()")
     addFragment()
   }

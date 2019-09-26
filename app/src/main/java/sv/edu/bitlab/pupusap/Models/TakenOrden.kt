@@ -4,11 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
-class Orden() : Parcelable {
+class TakenOrden() : Parcelable {
   var precioUnidad = 0.5f
   var textInput = ""
   var maiz = hashMapOf(
@@ -72,7 +70,7 @@ class Orden() : Parcelable {
   }
 
 
-  companion object CREATOR : Parcelable.Creator<Orden> {
+  companion object CREATOR : Parcelable.Creator<TakenOrden> {
 
     const val QUESO = "QUESO"
     const val FRIJOLES = "FRIJOLES"
@@ -81,19 +79,19 @@ class Orden() : Parcelable {
     const val ARROZ = "ARROZ"
     const val FORMATO_FECHA = "dd-MM-yyyy" //09-09-2019
 
-    override fun createFromParcel(parcel: Parcel): Orden {
-      return Orden(parcel)
+    override fun createFromParcel(parcel: Parcel): TakenOrden {
+      return TakenOrden(parcel)
     }
 
-    override fun newArray(size: Int): Array<Orden?> {
+    override fun newArray(size: Int): Array<TakenOrden?> {
       return arrayOfNulls(size)
     }
 
 
-    fun randomOrders() :ArrayList<Orden>{
-      var lista = arrayListOf<Orden>()
+    fun randomOrders() :ArrayList<TakenOrden>{
+      var lista = arrayListOf<TakenOrden>()
       for(index in 0..10){
-        val orden = Orden()
+        val orden = TakenOrden()
         val randomDaysNumbers = (Math.random() *10 ).toInt()
         var fechaRandom = DateTime()
         orden.fecha = if(randomDaysNumbers % 2 == 0) fechaRandom.plusDays(randomDaysNumbers) else fechaRandom.minusDays(randomDaysNumbers)

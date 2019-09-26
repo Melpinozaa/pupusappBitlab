@@ -8,6 +8,7 @@ import android.os.PersistableBundle
 import android.widget.TextView
 import android.widget.Toast
 import sv.edu.bitlab.pupusap.Models.Orden
+import sv.edu.bitlab.pupusap.Models.TakenOrden
 import sv.edu.bitlab.pupusap.OrdenDetalleFragment
 import sv.edu.bitlab.pupusap.R
 public const val VARIABLE = 2
@@ -28,7 +29,7 @@ class HistoryActivity : AppCompatActivity(),
     super.onCreate(savedInstanceState)
 
     ordenes = if(savedInstanceState == null)
-      Orden.randomOrders()
+      TakenOrden.randomOrders()
     else
       savedInstanceState.getParcelableArrayList(HISTORIAL_DE_ORDENES)!!
 
@@ -58,7 +59,7 @@ class HistoryActivity : AppCompatActivity(),
     builder.commitAllowingStateLoss()
   }
 
-  fun loadDetailFragment(containerID: Int, orden: Orden) {
+  fun loadDetailFragment(containerID: Int, orden: TakenOrden) {
     val fragment = OrdenDetalleFragment.newInstance(orden, true)
     val builder = supportFragmentManager
       .beginTransaction()

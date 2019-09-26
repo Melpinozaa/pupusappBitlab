@@ -1,17 +1,27 @@
 package sv.edu.bitlab.pupusap
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import sv.edu.bitlab.pupusap.Models.Orden
+import sv.edu.bitlab.pupusap.Models.Relleno
+import sv.edu.bitlab.pupusap.Models.TakenOrden
+import sv.edu.bitlab.pupusap.Models.RellenoWrapper
+import sv.edu.bitlab.pupusap.Network.ApiService
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RellenoViewHolder.RellenoViewHolderListener {
 
-    val orden = Orden()
+    val orden = TakenOrden()
 
     val pupusaStringResources = hashMapOf(
         QUESO to R.string.pupusa_queso,
@@ -35,54 +45,45 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        orden.maiz[QUESO] = 3
-        orden.maiz[FRIJOLES] = 3
-        orden.maiz[REVUELTAS] = 3
-        orden.arroz[QUESO] = 3
-        orden.arroz[FRIJOLES] = 3
-        orden.arroz[REVUELTAS] = 3
-        confirmarOrden()
-  /*      quesoIzquierda = findViewById(R.id.quesoIzquierda)
-        frijolIzquierda = findViewById(R.id.frijolIzquierdaMaiz)
-        revueltaIzquierda = findViewById(R.id.revueltasIzquierda)
 
-        botonesMaiz= hashMapOf(
-            QUESO to quesoIzquierda!!,
-            FRIJOLES to frijolIzquierda!!,
-            REVUELTAS to revueltaIzquierda!!
-        )
+        val orden = Orden(0, arrayListOf(), arrayListOf(), 0.5f, 10.50f)
+        val loadingContainer = findViewById<View>(R.id.loadingContainer)
+        val rellenosList = findViewById<RecyclerView>(R.id.rellenosList)
+        rellenosList.layoutManager = LinearLayoutManager(this)
+        rellenosList.adapter = RellenosListAdapter(arrayListOf<Relleno>(), this)
+        loadingContainer.visibility = View.VISIBLE
 
-        quesoIzquierda!!.setOnClickListener { addMaiz(QUESO) }
-        frijolIzquierda!!.setOnClickListener { addMaiz(FRIJOLES) }
-        revueltaIzquierda!!.setOnClickListener { addMaiz(REVUELTAS) }
+        ApiService.create().getRellenos().enqueue(object : Callback<RellenoWrapper>{
+            override fun onFailure(call: Call<RellenoWrapper>, t: Throwable) {
+                loadingContainer.visibility = View.GONE
+                AlertDialog.Builder(getContent())
+                    .setTitle("ERROR")
+                    .setMessage("Error con el servidor lo sentimos")
+                    .setNeutralButton("ok", null)
+                    .create()
+                    .show()
+            }
 
-
-        quesoDerecha = findViewById(R.id.quesoDerecha)
-        frijolDerecha = findViewById(R.id.frijolIDerechaArroz)
-        revueltasDerecha = findViewById(R.id.revueltasDerecha)
-
-        botonesArroz= hashMapOf(
-            QUESO to quesoDerecha!!,
-            FRIJOLES to frijolDerecha!!,
-            REVUELTAS to revueltasDerecha!!
-        )
-
-        quesoDerecha!!.setOnClickListener { addArroz(QUESO) }
-        frijolDerecha!!.setOnClickListener { addArroz(FRIJOLES) }
-        revueltasDerecha!!.setOnClickListener { addArroz(REVUELTAS) }
-
-        sendButton = findViewById(R.id.sendButton)
-        sendButton!!.setOnClickListener {
-            confirmarOrden()
-        }
-
-        loadingContainer = findViewById(R.id.loadingContainer)
-        loadingContainer!!.setOnClickListener { showLoading(false) }
-
-        displayCounters()
-        setActionBar(null)
-        Log.d("ACTIVITY", "MainActivity onCreate()")*/
+            override fun onResponse(
+                call: Call<RellenoWrapper>,
+                response: Response<RellenoWrapper>
+            ) {
+                loadingContainer.visibility = View.GONE
+                val rellenos = response.body()!!.rellenos
+                val adapter = rellenosList.adapter as RellenosListAdapter
+                adapter.rellenos = rellenos
+                adapter.notifyDataSetChanged()
+            }
+        })
     }
+
+
+    fun getContent(): Context {
+        return this
+    }
+
+
+
 
     fun displayCounters() {
         for ((key,value) in orden.maiz){

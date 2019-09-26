@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import sv.edu.bitlab.pupusap.HistoryScreen.HistoryRecyclerView.HistoryItemViewHolder
 import sv.edu.bitlab.pupusap.HistoryScreen.HistoryRecyclerView.OrdenAdapter
-import sv.edu.bitlab.pupusap.Models.Orden
+import sv.edu.bitlab.pupusap.Models.TakenOrden
 
 import sv.edu.bitlab.pupusap.R
 
@@ -30,14 +30,14 @@ private const val ORDERS_LIST = "ORDERS_LIST"
 class HistoryListFragment : Fragment(), HistoryItemViewHolder.OrdenItemListener {
 
   // TODO: Rename and change types of parameters
-  private var orderLists = arrayListOf<Orden>()
+  private var orderLists = arrayListOf<TakenOrden>()
   private var listener: HistoryListFragmentListener? = null
   private var listView: RecyclerView? = null
   private var inflater: LayoutInflater? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    orderLists = arguments!!.getParcelableArrayList<Orden>(ORDERS_LIST)!!
+    orderLists = arguments!!.getParcelableArrayList<TakenOrden>(ORDERS_LIST)!!
   }
 
   override fun onCreateView(
@@ -124,7 +124,7 @@ class HistoryListFragment : Fragment(), HistoryItemViewHolder.OrdenItemListener 
     fragment.arguments = params
     return fragment*/
     @JvmStatic
-    fun newInstance(orderList: ArrayList<Orden>) : HistoryListFragment {
+    fun newInstance(orderList: ArrayList<TakenOrden>) : HistoryListFragment {
       val params = Bundle()
       params.putParcelableArrayList(ORDERS_LIST, orderList)
       val fragment = HistoryListFragment()
